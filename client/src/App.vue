@@ -22,6 +22,7 @@ sessionsStore.methods.saveSessionsInVarSessions();
 
 html {
   background-color: rgb(231, 232, 232);
+  overflow: hidden;
 }
 
 /* width */

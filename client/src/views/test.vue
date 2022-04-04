@@ -1,11 +1,9 @@
 <template>
-$END$
+  <div style="color: #fff">cc</div>
 </template>
 
-<script>
-export default {
-name: "test"
-}
+<script setup>
+
 </script>
 
 <style scoped>
