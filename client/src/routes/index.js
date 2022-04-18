@@ -3,59 +3,38 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // import views
 import Home from "../views/home.vue";
-import Test from "../views/test.vue";
-import Test2 from "../views/test2.vue";
+import Profile from "../views/pages/profile.vue";
+import AboutMe from "../views/pages/about_me.vue";
+import MySkills from "../views/pages/my_skills.vue";
+import Works from "../views/pages/works.vue";
+
 
 // var content all routes
 const routes = [
   {
-    path: "",
+    path: "/",
     name: "Home",
     component: Home,
     children: [
       {
-        path: "test1",
-        component: Test
+        path: "profile",
+        id: "profile",
+        component: Profile
       },
       {
-        path: "test2",
-        component: Test2
+        path: "about_me",
+        id: "about_me",
+        component: AboutMe
       },
       {
-        path: "test3",
-        component: Test
+        path: "my_skills",
+        id: "my_skills",
+        component: MySkills
       },
       {
-        path: "test4",
-        component: Test
-      },
-      {
-        path: "test5",
-        component: Test
-      },
-      {
-        path: "test6",
-        component: Test
-      },
-      {
-        path: "test7",
-        component: Test
-      },
-      {
-        path: "test8",
-        component: Test
-      },
-      {
-        path: "test9",
-        component: Test
-      },
-      {
-        path: "test10",
-        component: Test
-      },
-      {
-        path: "test11",
-        component: Test
+        path: "works",
+        id: "works",
+        component: Works
       }
     ]
   },
@@ -64,6 +43,10 @@ const routes = [
     name: "About",
     component: Home,
   },
+  {
+    path: "/:pathMatch(.*)",
+    redirect: ""
+  }
 ];
 
 // create router

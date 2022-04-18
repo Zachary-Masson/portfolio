@@ -1,11 +1,14 @@
 <script setup>
 import useSessionsStore from "./stores/sessions";
+import Cursor from "./components/cursor.vue"
 const sessionsStore = useSessionsStore();
 sessionsStore.methods.genId();
 sessionsStore.methods.saveSessionsInVarSessions();
+sessionsStore.methods.addViews();
 </script>
 
 <template>
+  <Cursor />
   <router-view />
 </template>
 
@@ -21,6 +24,7 @@ sessionsStore.methods.saveSessionsInVarSessions();
 }
 
 html {
+  /*cursor: none;*/
   background-color: rgb(231, 232, 232);
   overflow: hidden;
 }

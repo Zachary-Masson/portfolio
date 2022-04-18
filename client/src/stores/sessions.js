@@ -1,22 +1,23 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import axios from "axios";
 
-function makeid(length) {
+function makeId(length) {
   let result = "";
   let resultFinal = "";
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz^$ù*,;:!¨£%µ?./§&'_=²0123456789";
   const charactersLength = characters.length;
-  const nomberInPart = 8;
-  for (var i = 0; i < length; i++) {
+  const numberInPart = 8;
+  for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
-  for (var i = 0; i <= result.length; i++) {
-    if (!(i / nomberInPart).toString(10).split(".")[1]) {
+  for (let i = 0; i <= result.length; i++) {
+    if (!(i / numberInPart).toString(10).split(".")[1]) {
       if (i !== 0) {
         let part = result
           .split("")
-          .slice(i - nomberInPart, i)
+          .slice(i - numberInPart, i)
           .join("");
 
         if (i !== result.length) {
@@ -29,6 +30,8 @@ function makeid(length) {
   }
   return resultFinal;
 }
+
+const API = axios.create({baseURL: 'http://localhost:3000'})
 
 const useSessionsStore = defineStore("sessions", () => {
   const sessions = ref({
@@ -44,13 +47,20 @@ const useSessionsStore = defineStore("sessions", () => {
       data: {
         logo_url:
           "https://media.discordapp.net/attachments/726112369456971918/960152316823097374/logo.png",
+        timeForSendAddView: 1
       },
       saveInSessions: false,
     },
+    function: {
+      data: {
+
+      },
+      saveInSessions: false
+    }
   });
 
   const genId = () => {
-    sessions.value.id.data = makeid(64);
+    sessions.value.id.data = makeId(64);
   };
 
   const saveSessionsInVarSessions = () => {
@@ -72,6 +82,17 @@ const useSessionsStore = defineStore("sessions", () => {
     sessionStorage.setItem(`dev-${nameOfVar}`, sessions.value[nameOfVar].data);
   };
 
+  const addFunction = (name, func) => {
+    sessions.value.function.data[name] = {};
+    sessions.value.function.data[name] = func
+  }
+
+  const addViews = () => {
+    setTimeout(() => {
+      API.post('/utils/addViews', {});
+    }, sessions.value.config.data.timeForSendAddView * 60 * 1000)
+  }
+
   const getId = () => {
     return sessions.value.id.data;
   };
@@ -80,16 +101,24 @@ const useSessionsStore = defineStore("sessions", () => {
     return sessions.value.config.data;
   };
 
+  const getFunction = () => {
+    return sessions.value.function.data;
+  }
+
   return {
     getters: {
       getId,
       getConfig,
+      getFunction
     },
-    setters: {},
+    setters: {
+      addFunction
+    },
     methods: {
       genId,
       saveSessionsInVarSessions,
       saveSessionsOneVar,
+      addViews
     },
   };
 });

@@ -1,0 +1,21 @@
+{
+  "debug": {
+    "status": true,
+    "title": "Debug",
+    "color": "32m",
+    "debug.launch_application": {
+      "status": true,
+      "title": "Application",
+      "color": "33m"
+    },
+    "debug.add_route": {
+      "status": true,
+      "title": "Application",
+      "color": "33m"
+    },
+    "messages": {
+      "launch_application": "disponible avec l'url : http://localhost:{{ port }}",
+      "add_route": "$c{{ route.name }}$s est $cinitialiser$s ✅"
+    }
+  }
+}
